@@ -5,6 +5,10 @@ var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
     // Add options here
+    'ember-prism': {
+      components: ['scss', 'javascript', 'bash'],
+      plugins: ['line-highlight']
+    }
   });
 
   // Use `app.import` to add additional libraries to the generated
@@ -20,5 +24,21 @@ module.exports = function(defaults) {
   // please specify an object with the list of modules as keys
   // along with the exports of each module as its value.
 
+  /**
+   * Materialize CSS
+   */
+  app.import('bower_components/materialize/dist/css/materialize.min.css');
+  [
+    'Roboto-Regular.woff2',
+    'Roboto-Regular.woff',
+    'Roboto-Regular.ttf',
+    'Roboto-Medium.woff2',
+    'Roboto-Medium.woff',
+    'Roboto-Medium.ttf'
+  ].forEach((path) => {
+    app.import(`bower_components/materialize/dist/fonts/roboto/${path}`, {
+      destDir: 'fonts/roboto'
+    });
+  });
   return app.toTree();
 };

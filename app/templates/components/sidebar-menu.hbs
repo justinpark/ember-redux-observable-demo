@@ -1,0 +1,7 @@
+<ul class="side-nav fixed">
+  {{#each menus as |menu|}}
+    <li class="bold">
+      {{#link-to menu.link}}{{menu.label}}{{/link-to}}
+    </li>
+  {{/each}}
+</ul>

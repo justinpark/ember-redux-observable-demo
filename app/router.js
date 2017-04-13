@@ -7,6 +7,11 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
+  this.route('index', { path: '/'});
+  this.route('structure');
+  this.route('redux');
+  this.route('epic');
+  this.route('devtool');
 });
 
 export default Router;
