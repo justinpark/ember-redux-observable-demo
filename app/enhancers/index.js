@@ -1,8 +1,3 @@
-<div class="row">
-  <h4>
-    Integrates the devtool into the enhancer
-  </h4>
-  {{#code-block language="javascript"}}
 /**
  * Enables the redux devTools on the development environment
  */
@@ -18,12 +13,3 @@ const devtools = (()=> {
 })();
 
 export default redux.compose(devtools);
-{{/code-block}}
-
-  <h4>Visit the page where the container component is integrated</h4>
-
-  {{#code-block language="hbs"}}
-{ {containers/user-container}}
-  {{/code-block}}
-  {{containers/user-container}}
-</div>

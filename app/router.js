@@ -12,6 +12,9 @@ Router.map(function() {
   this.route('redux');
   this.route('epic');
   this.route('devtool');
+  this.route('mirage');
+  this.route('effect');
+  this.route('container');
 });
 
 export default Router;

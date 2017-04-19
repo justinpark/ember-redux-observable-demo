@@ -11,8 +11,17 @@ export default Ember.Component.extend({
     label: 'Redux Example',
     link: 'redux'
   }, {
+    label: 'Redux Container Example',
+    link: 'container'
+  }, {
     label: 'Epics (redux-observable)',
     link: 'epic'
+  }, {
+    label: 'Effects (redux-saga)',
+    link: 'effect'
+  }, {
+    label: 'Mock API (ember-cli-mirage)',
+    link: 'mirage'
   }, {
     label: 'Setup the Devtool',
     link: 'devtool'

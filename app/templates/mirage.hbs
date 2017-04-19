@@ -1,0 +1,38 @@
+<div class="row">
+  <h4>
+    Installation
+  </h4>
+  {{#code-block language="bash"}}
+> ember install ember-cli-mirage{{/code-block}}
+
+  <h4>Build the factory (post)</h4>
+  {{#code-block language="bash"}}
+> ember g mirage-factory post{{/code-block}}
+
+  <h4>Setup the factory</h4>
+
+  {{#code-block language="javascript"}}
+import { Factory, faker } from 'ember-cli-mirage';
+
+export default Factory.extend({
+  owner: faker.name.firstName,
+  title: faker.lorem.sentence
+});
+{{/code-block}}
+
+  <h4>
+    Mirage Server Setup
+  </h4>
+  {{#code-block language="javascript"}}
+/* mirage/config.js */
+export default function() {
+  this.urlPrefix = '';
+  this.namespace = 'api';
+
+  this.get('/posts');
+  this.post('/posts');
+  this.get('/posts/:id');
+  this.del('/posts/:id');
+}
+{{/code-block}}
+</div>

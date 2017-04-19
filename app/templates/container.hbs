@@ -1,0 +1,65 @@
+{{#containers/user-container as |user actions|}}
+<div class="row">
+  <div class="card">
+    <div class="card-content">
+      <ul>
+        <li>
+          user.loading: <strong>{{user.loading}}</strong>
+        </li>
+        <li>
+          user.loaded: <strong>{{user.loaded}}</strong>
+        </li>
+        <li>
+          user.list: <strong>{{user.list}}</strong>
+        </li>
+      </ul>
+    </div>
+    <div class="card-action">
+      <button class="btn" {{action actions.onLoading}}>
+        Set Loading
+      </button>
+      <button class="btn" {{action actions.onLoad}}>
+        Set Load
+      </button>
+      <button class="btn" {{action actions.onRequest}}>
+        Set Request
+      </button>
+    </div>
+  </div>
+  <h4>Setup the container component</h4>
+  {{#code-block language="javascript"}}
+import Ember from 'ember';
+import connect from 'ember-redux/components/connect';
+import { Actions } from 'ember-redux-observable-demo/actions/user';
+
+function select(store) {
+  const { ids, entities, loading, loaded } = store.user;
+
+  return {
+    loading,
+    loaded,
+    users: ids.map(id => entities[id])
+  }
+}
+
+function actions(dispatch) {
+  return {
+    onLoad() {
+      dispatch(Actions.loadUser());
+    },
+    onLoading() {
+      dispatch(Actions.loading());
+    },
+    onRequest() {
+      const params = {};
+
+      dispatch(Actions.request(params));
+    }
+  };
+}
+
+export default connect(select, actions)(Ember.Component.extend({
+}));
+{{/code-block}}
+</div>
+{{/containers/user-container}}

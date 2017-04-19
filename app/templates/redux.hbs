@@ -1,8 +1,135 @@
 <div class="row">
   <h4>
-    Action Setup
+    Installation
+  </h4>
+  {{#code-block language="bash"}}
+> ember install ember-redux-shim
+> ember install ember-redux{{/code-block}}
+  <h4>
+    Actions Setup
   </h4>
 
   {{#code-block language="javascript"}}
-/* actions/index.js */{{/code-block}}
+/* actions/user.js */
+import { type } from './util';
+
+/**
+ * Define the action types
+ */
+export const ActionTypes = {
+  REQUEST_READ: type('[User] Request Read'),
+  LOAD: type('[User] Load'),
+  LOADING: type('[User] Loading'),
+};
+
+function request(params) {
+  return {
+    type: ActionTypes.REQUEST_READ,
+    payload: {
+      params,
+      source: 'search'
+    }
+  };
+}
+
+function loading() {
+  return {
+    type: ActionTypes.LOADING
+  };
+}
+
+function loadUser(response) {
+  return {
+    type: ActionTypes.LOAD,
+    payload: response
+  };
+}
+
+export const Actions = {
+  request,
+  loading,
+  loadUser
+};
+{{/code-block}}
+
+  <h4>Action Helper to maintain the unique action names</h4>
+  {{#code-block language="javascript"}}
+/* actions/util.js */
+let TypeCache = {};
+
+/**
+ * Store into the TypeCache and return the type name.
+ * @throws Will throw an error if the name is already defined.
+ * @return {String} label - Action type name
+ */
+export function type(label) {
+  if (TypeCache[label]) {
+    throw new Error(`Action type "${label}" is not unique.`);
+  }
+  TypeCache[label] = true;
+  return label;
+}
+{{/code-block}}
+  <h4>
+    Reducers Setup
+  </h4>
+
+  {{#code-block language="javascript"}}
+/* reducers/index.js */
+import reducerA from './reducerA';
+...
+import user from './user';
+
+export default {
+  reducerA,
+  ...
+  user,
+};{{/code-block}}
+  <h4>Design a reducer (User)</h4>
+  {{#code-block language="javascript"}}
+/* reducers/user.js */
+import { ActionTypes } from '../actions/user';
+
+/**
+ * Define the schema
+ */
+const INITIAL_STATE = {
+
+  /**
+   * State for loading
+   */
+  loading: false,
+
+  /**
+   * State for loaded
+   */
+  loaded: false,
+
+  /**
+   * List the items in order
+   */
+  ids: [],
+
+  /**
+   * Items in hash map
+   */
+  entities: {}
+};
+
+export default function reducer(state = INITIAL_STATE, action = {}) {
+  switch (action.type) {
+    case ActionTypes.LOAD:
+      return Object.assign(state, {
+        loading: false,
+        loaded: true,
+      });
+
+    case ActionTypes.LOADING:
+      return Object.assign(state, {
+        loading: true
+      });
+  }
+  return state;
+}
+{{/code-block}}
 </div>

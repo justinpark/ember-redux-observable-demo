@@ -1,0 +1,9 @@
+{{yield (hash
+  list=users
+  loading=loading
+  loaded=loaded
+) (hash
+  onRequest=(action "onRequest")
+  onLoad=(action "onLoad")
+  onLoading=(action "onLoading")
+)}}

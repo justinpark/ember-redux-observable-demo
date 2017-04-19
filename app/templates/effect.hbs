@@ -1,0 +1,32 @@
+<div class="row">
+  {{#containers/user-container as |user actions|}}
+    <div class="card">
+      <div class="card-content">
+        <ul>
+          <li>
+            user.loading: <strong>{{user.loading}}</strong>
+          </li>
+          <li>
+            user.loaded: <strong>{{user.loaded}}</strong>
+          </li>
+          <li>
+            user.list: <strong>{{user.list}}</strong>
+          </li>
+        </ul>
+      </div>
+      <div class="card-action">
+        <button class="btn" {{action actions.onRequest}}>
+          Set Request
+        </button>
+      </div>
+    </div>
+  {{/containers/user-container}}
+
+
+  <h4>Installation</h4>
+
+  {{#code-block language="bash"}}
+ember install ember-redux-saga-shim{{/code-block}}
+
+
+</div>
