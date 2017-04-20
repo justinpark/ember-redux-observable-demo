@@ -8,6 +8,9 @@ module.exports = function(defaults) {
     'ember-prism': {
       components: ['scss', 'javascript', 'bash'],
       plugins: ['line-highlight']
+    },
+    'ember-cli-babel': {
+      includePolyfills: true
     }
   });
 

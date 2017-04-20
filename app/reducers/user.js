@@ -29,9 +29,11 @@ const INITIAL_STATE = {
 export default function reducer(state = INITIAL_STATE, action = {}) {
   switch (action.type) {
     case ActionTypes.LOAD:
+      const { user: users } = action.payload;
       return Object.assign(state, {
         loading: false,
         loaded: true,
+        ids: users.map(user => user.id)
       });
 
     case ActionTypes.LOADING:

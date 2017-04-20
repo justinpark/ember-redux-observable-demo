@@ -1,25 +1,29 @@
 <div class="row">
   {{#containers/user-container as |user actions|}}
-    <div class="card">
-      <div class="card-content">
-        <ul>
-          <li>
-            user.loading: <strong>{{user.loading}}</strong>
-          </li>
-          <li>
-            user.loaded: <strong>{{user.loaded}}</strong>
-          </li>
-          <li>
-            user.list: <strong>{{user.list}}</strong>
-          </li>
-        </ul>
+    {{#if user.loading }}
+      Loading...
+    {{else}}
+      <div class="card">
+        <div class="card-content">
+          <ul>
+            <li>
+              user.loading: <strong>{{user.loading}}</strong>
+            </li>
+            <li>
+              user.loaded: <strong>{{user.loaded}}</strong>
+            </li>
+            <li>
+              user.list: <strong>{{user.list}}</strong>
+            </li>
+          </ul>
+        </div>
+        <div class="card-action">
+          <button class="btn" {{action actions.onRequest}}>
+            Set Request
+          </button>
+        </div>
       </div>
-      <div class="card-action">
-        <button class="btn" {{action actions.onRequest}}>
-          Set Request
-        </button>
-      </div>
-    </div>
+    {{/if}}
   {{/containers/user-container}}
 
 
@@ -28,5 +32,20 @@
   {{#code-block language="bash"}}
 ember install ember-redux-saga-shim{{/code-block}}
 
+  <h4>Setup Middleware</h4>
+  {{#code-block language="javascript"}}
+import createSagaMiddleware from 'redux-saga';
+import userEffects from 'ember-redux-observable-demo/effects/user/read';
 
+const sagaMiddleware = createSagaMiddleware();
+
+const setup = () => {
+  sagaMiddleware.run(userEffects);
+};
+
+export default {
+  middleware: [sagaMiddleware],
+  setup: setup
+};
+{{/code-block}}
 </div>

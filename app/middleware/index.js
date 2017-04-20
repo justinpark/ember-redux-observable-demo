@@ -1,8 +1,13 @@
 import createSagaMiddleware from 'redux-saga';
-import userEffects from 'ember-redux-observable-demo/effects/user/read';
+import effects from 'ember-redux-observable-demo/effects';
 
 const sagaMiddleware = createSagaMiddleware();
 
-// sagaMiddleware.run(userEffects);
+const setup = () => {
+  sagaMiddleware.run(effects);
+};
 
-export default [sagaMiddleware];
+export default {
+  middleware: [sagaMiddleware],
+  setup: setup
+};

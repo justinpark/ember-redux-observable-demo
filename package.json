@@ -35,6 +35,7 @@
     "ember-export-application-global": "^1.0.5",
     "ember-load-initializers": "^0.5.1",
     "ember-lodash-shim": "2.0.2",
+    "ember-maybe-import-regenerator": "0.1.6",
     "ember-prism": "0.0.8",
     "ember-redux": "1.10.0",
     "ember-redux-saga-shim": "0.1.2",

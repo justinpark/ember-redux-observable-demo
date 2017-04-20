@@ -14,6 +14,7 @@ export default function() {
   // this.timing = 400;      // delay for each request, automatically set to 0 during testing
   this.urlPrefix = '';
   this.namespace = 'api';
+  this.timing = 2000;
 
   this.get('/posts');
   this.post('/posts');
@@ -22,6 +23,8 @@ export default function() {
   this.del('/posts/:id');
 
   this.get('/swapi-results', () => swapi);
+
+  this.get('/users');
   /*
     Shorthand cheatsheet:
 
