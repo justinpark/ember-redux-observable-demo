@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {call, put, takeEvery} from 'redux-saga/effects'
+import {call, put, takeEvery} from 'redux-saga/effects';
 import { ActionTypes, Actions} from 'ember-redux-observable-demo/actions/user';
 
 function fetchAPI(url) {
@@ -10,7 +10,6 @@ function fetchAPI(url) {
 }
 
 function* fetchUser(action) {
-  const { payload } = action;
   try {
     yield put(Actions.loading());
     const user = yield call(fetchAPI, '/api/users');

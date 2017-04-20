@@ -32,15 +32,64 @@
   {{#code-block language="bash"}}
 ember install ember-redux-saga-shim{{/code-block}}
 
+  <h4>Setup Effects</h4>
+  {{#code-block language="javascript"}}
+/* app/effects/index.js */
+import { fork } from 'redux-saga/effects'
+import userEffects from './user/read';
+import otherEffect from './user/otherEffect';
+
+
+export default function* index() {
+  yield [
+    fork(userEffects),
+    fork(otherEffect),
+  ];
+}
+{{/code-block}}
+
+    <h4>Configure an effect for an action</h4>
+  {{#code-block language="javascript"}}
+/* app/effects/user/read.js */
+import Ember from 'ember';
+import {call, put, takeEvery} from 'redux-saga/effects'
+import { ActionTypes, Actions} from 'ember-redux-observable-demo/actions/user';
+
+function fetchAPI(url) {
+  return Ember.$.ajax({ url })
+    .then((response) => {
+      return response.data;
+    });
+}
+
+function* fetchUser(action) {
+  const { payload } = action;
+  try {
+    yield put(Actions.loading());
+    const user = yield call(fetchAPI, '/api/users');
+    yield put(Actions.loadUser({ user }));
+  } catch (e) {
+    yield put(Actions.requestFail());
+  }
+}
+
+function* requestRead() {
+  yield takeEvery(ActionTypes.REQUEST_READ, fetchUser);
+}
+
+export default requestRead;
+{{/code-block}}
+
   <h4>Setup Middleware</h4>
   {{#code-block language="javascript"}}
+/* app/middleware/index.js */
 import createSagaMiddleware from 'redux-saga';
-import userEffects from 'ember-redux-observable-demo/effects/user/read';
+import effects from 'ember-redux-observable-demo/effects';
 
 const sagaMiddleware = createSagaMiddleware();
 
 const setup = () => {
-  sagaMiddleware.run(userEffects);
+  sagaMiddleware.run(effects);
 };
 
 export default {

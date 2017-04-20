@@ -1,4 +1,4 @@
-import { fork } from 'redux-saga/effects'
+import { fork } from 'redux-saga/effects';
 import userEffects from './user/read';
 
 

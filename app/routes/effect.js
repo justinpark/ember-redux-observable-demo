@@ -7,7 +7,7 @@ export default Ember.Route.extend({
   model() {
     this.get('redux').dispatch(Actions.loading());
     const redux = this.get('redux');
-    return this.store.read({url: '/api/users'}).then((response) => {
+    return Ember.$.ajax({url: '/api/users'}).then((response) => {
       redux.dispatch(Actions.loadUser({
         user: response.data
       }));
